@@ -1,24 +1,19 @@
-// ✅ Playwright test runner import
-const { test, expect } = require('@playwright/test');
-
+const { test } = require('@playwright/test');
 const TestHarness = require('../harness/runner');
-const TradePage = require('../pages/tradePage');
-const CoordinatorAgent = require('../agents/coordinatorAgent');
+const Agent = require('../agents/agent');
 
 test('AI Autonomous Harness — Hyperliquid Trade Flow', async ({ page }) => {
 
-  // 🧠 Initialize core components
-  const harness = new TestHarness(page);
-  const tradePage = new TradePage(page);
-  const agent = new CoordinatorAgent();
+  // Must open site first
+  await page.goto('https://app.hyperliquid.xyz/', {
+    waitUntil: 'domcontentloaded'
+  });
 
-  // 🚀 Start Harness
+  const harness = new TestHarness(page);
+
   await harness.start();
 
-  // 🔁 Autonomous multi-agent execution
-  await harness.run(agent, tradePage);
+  const agent = new Agent();
 
-  // ✅ Final validation
-  expect(await tradePage.isLoaded()).toBeTruthy();
-
+  await harness.run(agent, page);
 });

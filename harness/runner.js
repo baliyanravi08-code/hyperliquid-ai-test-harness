@@ -1,31 +1,51 @@
+// harness/runner.js
+
 const { resolveIntent } = require('../utils/intentResolver');
 
 class TestHarness {
 
   constructor(page) {
     this.page = page;
+    this.wsHandler = null;
+    this.frameHandler = null;
   }
 
+  // ⭐ START HARNESS
   async start() {
 
     console.log("🚀 Harness started");
 
-    this.page.on('websocket', ws => {
+    this.wsHandler = (ws) => {
 
       console.log("📡 WebSocket observer started");
       console.log("🔌 WebSocket connected:", ws.url());
 
-      ws.on('framereceived', () => {
+      // ⭐ VERY IMPORTANT — expose WS readiness to planner
+      this.frameHandler = () => {
         console.log("📥 WS Frame received");
-      });
+
+        // Planner V4 reads this flag
+        this.page.__WS_READY__ = true;
+      };
+
+      ws.on('framereceived', this.frameHandler);
 
       ws.on('close', () => {
         console.log("🔌 WebSocket closed");
       });
-    });
+    };
+
+    this.page.on('websocket', this.wsHandler);
   }
 
+  // ⭐ RUN LOOP
   async run(agent, tradePage) {
+
+    console.log("🧪 Agent received:", agent?.constructor?.name);
+
+    if (!agent || typeof agent.decide !== "function") {
+      throw new Error("❌ Invalid agent passed — decide() not found");
+    }
 
     while (true) {
 
@@ -33,8 +53,13 @@ class TestHarness {
 
       console.log("⚡ Executing intent:", intent.type);
 
-      // ⭐ Only intentResolver handles actions
       await resolveIntent(intent, tradePage);
+
+      // ⭐ WAIT support (Planner V4)
+      if (intent.type === "WAIT") {
+        await this.page.waitForTimeout(800);
+        continue;
+      }
 
       if (intent.type === "DONE") {
         console.log("🧠 Brain signaled DONE — stopping loop");
@@ -43,6 +68,19 @@ class TestHarness {
     }
 
     console.log("✅ Scenario complete");
+
+    await this.stop();
+  }
+
+  // ⭐ STOP HARNESS
+  async stop() {
+
+    console.log("🛑 Stopping Harness observers...");
+
+    if (this.wsHandler) {
+      this.page.off('websocket', this.wsHandler);
+      this.wsHandler = null;
+    }
   }
 }
 
