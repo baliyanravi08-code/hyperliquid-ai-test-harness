@@ -8,6 +8,7 @@ class TestHarness {
     this.page = page;
     this.wsHandler = null;
     this.frameHandler = null;
+    this.executionLog = []; // ⭐ health tracking
   }
 
   // ⭐ START HARNESS
@@ -20,11 +21,9 @@ class TestHarness {
       console.log("📡 WebSocket observer started");
       console.log("🔌 WebSocket connected:", ws.url());
 
-      // ⭐ VERY IMPORTANT — expose WS readiness to planner
+      // ⭐ expose WS readiness to planner
       this.frameHandler = () => {
         console.log("📥 WS Frame received");
-
-        // Planner V4 reads this flag
         this.page.__WS_READY__ = true;
       };
 
@@ -55,6 +54,9 @@ class TestHarness {
 
       await resolveIntent(intent, tradePage);
 
+      // ⭐ store executed intents
+      this.executionLog.push(intent.type);
+
       // ⭐ WAIT support (Planner V4)
       if (intent.type === "WAIT") {
         await this.page.waitForTimeout(800);
@@ -68,6 +70,18 @@ class TestHarness {
     }
 
     console.log("✅ Scenario complete");
+
+    // ⭐ HEALTH SUMMARY (FINAL STATUS)
+    const healthy =
+      this.executionLog.includes("OPEN_TRADE_PANEL") &&
+      this.executionLog.includes("PLACE_ORDER") &&
+      this.executionLog.includes("DONE");
+
+    if (healthy) {
+      console.log("🟢 ✅ Hyperliquid UI HEALTHY");
+    } else {
+      console.log("🔴 ❌ UI REGRESSION DETECTED");
+    }
 
     await this.stop();
   }
