@@ -1,24 +1,24 @@
-# 🚀 AI Autonomous Web Testing Harness — Hyperliquid (WebMCP-Inspired)
+# 🚀 AI Autonomous Web Testing Harness — Hyperliquid (Autonomous QA Harness)
 
 ![Playwright](https://img.shields.io/badge/Playwright-Automation-green)
 ![NodeJS](https://img.shields.io/badge/Node.js-Backend-blue)
-![AI Agents](https://img.shields.io/badge/AI-Agent%20Driven-purple)
+![AI Agents](https://img.shields.io/badge/Autonomous-Agent%20Driven-purple)
 ![Architecture](https://img.shields.io/badge/Harness-Engineering-orange)
 ![Status](https://img.shields.io/badge/Portfolio-Senior%20Level-success)
 
 ![Autonomous Harness Demo](docs/demo.png)
 
-An advanced AI-driven autonomous testing harness built with Playwright + Node.js using a multi-agent architecture.
+An advanced autonomous QA testing harness built with Playwright + Node.js that demonstrates how modern automation evolves from rigid scripts into intelligent, decision-driven systems.
 
-This project demonstrates how modern QA automation evolves from rigid scripts into intelligent autonomous systems using:
+This project validates **real-time trading UI health** on Hyperliquid using:
 
-✔ Context-aware testing  
-✔ Agent decision making  
-✔ Semantic self-healing  
+✔ Planner-based autonomous decision making  
+✔ Intent-driven execution engine  
 ✔ WebSocket observability  
 ✔ Autonomous execution loops  
+✔ UI health verification  
 
-Inspired by emerging concepts like WebMCP, intelligent testing systems, and Harness Engineering.
+Inspired by modern harness engineering and intelligent testing patterns used in fintech automation.
 
 
 --------------------------------------------------
@@ -33,40 +33,42 @@ Traditional automation depends on:
 
 This harness introduces:
 
-Agent-based reasoning
-+
-Intent-driven execution
-+
-Autonomous loop
-+
-Observability-first testing
+Planner-based reasoning  
++  
+Intent-driven execution  
++  
+Autonomous loop  
++  
+Observability-first testing  
 
-Instead of writing manual flows, agents analyze UI context and decide what to do next.
+Instead of writing rigid scripts, the system observes UI context and decides what to do next dynamically.
 
 
 --------------------------------------------------
 🏗️ ARCHITECTURE OVERVIEW
 --------------------------------------------------
 
-AI Agent Layer:
+Agent Layer:
 
-- CoordinatorAgent
-- NavigatorAgent
-- TraderAgent
-- ValidatorAgent
+- PlannerAgent V4 — environment analysis & decision logic
 
 Harness Layer:
 
-- TestHarness
-- IntentResolver
-- Self-Healing Engine
+- TestHarness — autonomous execution loop
+- IntentResolver — execution engine
+- Health Summary System — UI health validation
+
+Observability Layer:
+
+- WebSocket Observer — realtime market feed monitoring
+- Runtime Logging — intent tracking & diagnostics
 
 Execution Layer:
 
 - Playwright
-- WebSocket Observer
+- Chromium / Firefox / WebKit
 
-This mirrors modern Harness Engineer architecture patterns.
+This reflects a **practical autonomous QA harness**, not a research AI system.
 
 
 --------------------------------------------------
@@ -77,48 +79,41 @@ This mirrors modern Harness Engineer architecture patterns.
 - Node.js
 - JavaScript
 - Autonomous Agent Pattern
-- Semantic UI Targeting
+- Intent-Driven Automation
 - WebSocket Monitoring
-- Intelligent Test Harness
+- Live Trading UI Validation
 
 
 --------------------------------------------------
 ✨ CORE FEATURES
 --------------------------------------------------
 
-🤖 Multi-Agent Architecture
+🤖 Planner Agent V4
 
-Agents collaborate dynamically:
+Instead of static scripts:
 
-- CoordinatorAgent → memory & orchestration
-- NavigatorAgent → navigation logic
-- TraderAgent → wallet/trading actions
-- ValidatorAgent → validation & assertions
+Planner observes:
+
+- URL state
+- Trading UI visibility
+- WebSocket readiness
+
+Then decides next intent:
+
+OPEN_TRADE_PANEL → PLACE_ORDER → DONE
 
 
 🔁 Autonomous Harness Engine
 
-Agent decides intent
-↓
-IntentResolver executes action
-↓
-Page state updates
-↓
-Agent decides next action
+Agent decides intent  
+↓  
+IntentResolver executes action  
+↓  
+Page state updates  
+↓  
+Agent decides next action  
 
-No rigid scripts required.
-
-
-🧠 Semantic Self-Healing Engine
-
-Instead of brittle selectors:
-
-- semantic targeting
-- context-aware fallback logic
-- cross-browser handling
-- dynamic UI resilience
-
-Designed for complex crypto trading interfaces.
+No rigid step scripts required.
 
 
 📡 WebSocket Observability
@@ -127,21 +122,16 @@ Harness monitors live market streams:
 
 - detects WebSocket connections
 - logs live frames
-- validates real-time updates
+- validates realtime UI updates
 
 Simulates production-level observability.
 
 
-🧠 GPT Hybrid Brain (Safe Mode)
+🟢 UI Health Summary
 
-Optional AI reasoning layer:
+At the end of each run the harness prints:
 
-- rich context builder
-- offline fallback logic
-- timeout-safe execution
-- rate-limit protection
-
-System continues working even without AI responses.
+Provides a clear automation signal for CI pipelines or scheduled monitoring.
 
 
 --------------------------------------------------
@@ -151,22 +141,16 @@ System continues working even without AI responses.
 hyperliquid-ai-test-harness/
 
 agents/
-  coordinatorAgent.js
-  navigatorAgent.js
-  tradeAgent.js
-  validatorAgent.js
-  gptBrain.js
+  agent.js               (Planner Agent V4)
 
 harness/
-  runner.js
+  runner.js              (Autonomous harness loop)
 
 pages/
   tradePage.js
 
 utils/
-  intentResolver.js
-  selfHealing.js
-  wsObserver.js
+  intentResolver.js      (Execution engine)
 
 tests/
   example.spec.js
@@ -203,28 +187,23 @@ npx playwright test --project=webkit
 --------------------------------------------------
 
 🚀 Harness started  
-🧭 NavigatorAgent analyzing URL  
-⚡ Executing intent: NAVIGATE  
-🌐 Opening trade page  
-
-💼 TraderAgent checking wallet  
-🧠 Self-healing click attempt: Connect  
-
-📡 WebSocket observer started  
+🧠 Planner V4 observing environment  
+⚡ Executing intent: OPEN_TRADE_PANEL  
+📡 WebSocket connected  
 📥 WS Frame received  
-
-✅ Scenario complete
+⚡ Executing intent: PLACE_ORDER  
+🟢 Hyperliquid UI HEALTHY  
 
 
 --------------------------------------------------
 ⚠️ KNOWN LIMITATIONS
 --------------------------------------------------
 
-Firefox may intermittently fail on the "Connect Wallet" interaction due to:
+Firefox may intermittently fail during certain UI interactions due to:
 
 - dynamic rendering differences in Hyperliquid UI
-- duplicate semantic buttons
 - animation timing differences across browsers
+- canvas overlay behaviour
 
 Chromium and WebKit runs are stable.
 
@@ -238,23 +217,22 @@ This reflects real-world automation challenges on live trading platforms.
 This repository demonstrates:
 
 - Harness engineering design
-- Agent-based testing architecture
-- Autonomous execution flow
-- Self-healing UI automation
-- Real-time data validation
+- Autonomous decision-driven testing
+- Playwright architecture patterns
+- WebSocket-aware UI validation
+- Realistic fintech automation strategies
 
-Represents the shift from traditional QA into intelligent autonomous testing systems.
+Represents the shift from traditional QA into intelligent autonomous harness systems.
 
 
 --------------------------------------------------
 🧭 FUTURE ROADMAP
 --------------------------------------------------
 
-- WebMCP protocol integration
-- DOM context scoring
-- visual awareness layer
-- multi-session agents
-- distributed harness runners
+- Scheduled GitHub Actions monitoring
+- Expanded intent coverage
+- Multi-flow autonomous scenarios
+- Additional UI health metrics
 
 
 --------------------------------------------------
@@ -264,8 +242,8 @@ Represents the shift from traditional QA into intelligent autonomous testing sys
 Advanced QA automation portfolio project focused on:
 
 - Playwright architecture
-- AI-driven testing
-- Autonomous harness design
+- Autonomous testing systems
+- Harness engineering concepts
 - Real-world trading UI automation
 
 
@@ -273,11 +251,10 @@ Advanced QA automation portfolio project focused on:
 ⭐ REPOSITORY HIGHLIGHTS
 --------------------------------------------------
 
-✔ Multi-Agent Architecture  
+✔ Planner Agent Architecture  
 ✔ Autonomous Harness Loop  
 ✔ WebSocket Monitoring  
-✔ Semantic Self-Healing  
-✔ GPT Hybrid Brain  
-✔ WebMCP-Inspired Design  
+✔ UI Health Detection  
+✔ Trading UI Automation  
 
-🔥 Next-generation intelligent test automation.
+🔥 Practical next-generation QA automation harness.
