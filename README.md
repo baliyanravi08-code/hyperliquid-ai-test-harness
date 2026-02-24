@@ -126,13 +126,11 @@ Harness monitors live market streams:
 
 Simulates production-level observability.
 
-
 🟢 UI Health Summary
 
-At the end of each run the harness prints:
+At the end of each run the harness prints a UI health signal:
 
-Provides a clear automation signal for CI pipelines or scheduled monitoring.
-
+[code block here]
 
 --------------------------------------------------
 📂 PROJECT STRUCTURE
